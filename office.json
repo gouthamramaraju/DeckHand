@@ -1,0 +1,9 @@
+{
+  "office": "Example office — replace during setup",
+  "support_team": "IT service desk — add your approved contact",
+  "articles": [
+    {"id":"KB-001","title":"VPN connection","owner":"IT operations","review_date":"2027-03-31","keywords":["vpn","remote","connection"],"steps":["Check that normal websites load.","Confirm you are using the company-approved VPN client.","Record the error message without sharing credentials.","If the issue continues, contact the IT service desk."]},
+    {"id":"KB-002","title":"Printer unavailable","owner":"Workplace IT","review_date":"2027-03-31","keywords":["printer","printing","print"],"steps":["Check the printer display for an error.","Confirm you selected the correct office printer.","Check whether a colleague can print.","If several people are affected, contact IT."]},
+    {"id":"KB-003","title":"Password or MFA problem","owner":"Identity team","review_date":"2027-03-31","keywords":["password","mfa","login","locked"],"steps":["Use your organisation's approved account recovery process.","Never share a password, recovery code or MFA code.","If recovery is unavailable, contact IT for identity verification.","Do not approve an MFA request you did not initiate."]}
+  ]
+}

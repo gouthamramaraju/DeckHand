@@ -1,0 +1,38 @@
+name: Deskhand platform tests
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  backend:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ['3.10', '3.12', '3.13']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m unittest discover -s tests -v
+  browsers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save playwright@1.62.1
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - run: |
+          python server.py > server-startup.log 2>&1 &
+          python -c "import time,urllib.request; time.sleep(1); urllib.request.urlopen('http://127.0.0.1:8765/')"
+          node tests/browser.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-evidence
+          path: |
+            browser-results.json
+            screenshot.png
